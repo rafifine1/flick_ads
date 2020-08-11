@@ -1,6 +1,6 @@
 import 'package:flick_ads/networking/ApiProvider.dart';
 import 'dart:async';
-import 'package:flick_ads/models/Ads.dart';
+import 'package:flick_ads/Models/Ads.dart';
 
 class AdsRepo {
   ApiProvider _provider = ApiProvider();

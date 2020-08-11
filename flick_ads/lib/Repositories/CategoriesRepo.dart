@@ -1,6 +1,6 @@
 import 'package:flick_ads/networking/ApiProvider.dart';
 import 'dart:async';
-import 'package:flick_ads/models/Categories.dart';
+import 'package:flick_ads/Models/Categories.dart';
 
 class CategoryRepo {
   ApiProvider _provider = ApiProvider();
