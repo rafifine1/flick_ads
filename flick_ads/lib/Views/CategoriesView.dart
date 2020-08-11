@@ -21,8 +21,6 @@ class _CategoriesState extends State<CategoriesView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
-        automaticallyImplyLeading: false,
         title: Text('Categories',
             style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Color(0xFF333333),
