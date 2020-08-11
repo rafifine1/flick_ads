@@ -1,36 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flick_ads/Blocs/CategoriesBloc.dart';
+import 'package:flick_ads/Blocs/AdsBloc.dart';
 import 'package:flick_ads/Networking/Response.dart';
-import 'package:flick_ads/Models/Categories.dart';
+import 'package:flick_ads/Models/Ads.dart';
+import 'package:flick_ads/Views/AdView.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class CategoriesView extends StatefulWidget {
+class AdsView extends StatefulWidget {
   @override
-  _CategoriesState createState() => _CategoriesState();
+  _AdsState createState() => _AdsState();
 }
 
-class _CategoriesState extends State<CategoriesView> {
-  CategoryBloc _bloc;
+class _AdsState extends State<AdsView> {
+  AdsBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _bloc = CategoryBloc();
+    _bloc = AdsBloc();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories',
-            style: TextStyle(color: Colors.white, fontSize: 20)),
+        title: Text('Ads', style: TextStyle(color: Colors.white, fontSize: 20)),
         backgroundColor: Color(0xFF333333),
       ),
       backgroundColor: Color(0xFF333333),
       body: RefreshIndicator(
-        onRefresh: () => _bloc.fetchCategories(),
-        child: StreamBuilder<Response<Categories>>(
-          stream: _bloc.categoryListStream,
+        onRefresh: () => _bloc.fetchAds(),
+        child: StreamBuilder<Response<Ads>>(
+          stream: _bloc.adsListStream,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               switch (snapshot.data.status) {
@@ -38,12 +38,12 @@ class _CategoriesState extends State<CategoriesView> {
                   return Loading(loadingMessage: snapshot.data.message);
                   break;
                 case Status.COMPLETED:
-                  return CategoryList(categoryList: snapshot.data.data);
+                  return AdsList(adsList: snapshot.data.data);
                   break;
                 case Status.ERROR:
                   return Error(
                     errorMessage: snapshot.data.message,
-                    onRetryPressed: () => _bloc.fetchCategories(),
+                    onRetryPressed: () => _bloc.fetchAds(),
                   );
                   break;
               }
@@ -62,17 +62,17 @@ class _CategoriesState extends State<CategoriesView> {
   }
 }
 
-class CategoryList extends StatelessWidget {
-  final Categories categoryList;
+class AdsList extends StatelessWidget {
+  final Ads adsList;
 
-  const CategoryList({Key key, this.categoryList}) : super(key: key);
+  const AdsList({Key key, this.adsList}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: Color(0xFF202020),
       body: ListView.builder(
         itemBuilder: getCatItemUI,
-        itemCount: categoryList.categories.length,
+        itemCount: adsList.ads.length,
         shrinkWrap: true,
         physics: ClampingScrollPhysics(),
       ),
@@ -86,30 +86,38 @@ class CategoryList extends StatelessWidget {
         new ListTile(
           leading: CachedNetworkImage(
             placeholder: (context, url) => CircularProgressIndicator(),
-            imageUrl: categoryList.categories[index]['image'],
-            // imageUrl: "http://via.placeholder.com/350x150",
+            // imageUrl: adsList.ads[index]['image'],
+            imageUrl: "http://via.placeholder.com/350x150",
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
-
           title: new Text(
-            categoryList.categories[index]['name'],
+            adsList.ads[index]['name'],
             style: new TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold),
           ),
           subtitle: new Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                new Text(categoryList.categories[index]['createdAt'],
+                new Text(adsList.ads[index]['price'],
                     style: new TextStyle(
                         fontSize: 13.0, fontWeight: FontWeight.normal))
               ]),
           //trailing: ,
           onTap: () {
             // _showSnackBar(context, _allCities[index]);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AdView(adsList.ads[index]['id'])));
           },
         )
       ],
     ));
+  }
+
+  Future navigateToCategories(context) async {
+    // Navigator.push(context,
+    //     MaterialPageRoute(builder: (context) => AdView(adsList.ads[index])));
   }
 }
 
