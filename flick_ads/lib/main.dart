@@ -1,4 +1,6 @@
+import 'package:flick_ads/Models/Categories.dart';
 import 'package:flutter/material.dart';
+import 'package:flick_ads/Views/CategoriesView.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext ctxt) {
     return new MaterialApp(
       title: 'Flick Ads',
-      home: new ListDisplay(),
+      home: CategoriesView(),
     );
   }
 }

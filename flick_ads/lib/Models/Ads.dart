@@ -3,14 +3,14 @@ class Ads {
 
   Ads({this.ads});
 
-  factory Ads.fromJson(List<dynamic> json) {
+  factory Ads.fromJson(List<String> json) {
     return Ads(
       ads: json != null ? new List<String>.from(json) : null,
     );
   }
 
-  List<dynamic> toJson() {
-    List<dynamic> data = new List<String>();
+  List<String> toJson() {
+    List<String> data = new List<String>();
     if (this.ads != null) {
       data = this.ads;
     }

@@ -23,8 +23,11 @@ class CategoryBloc {
   fetchCategories() async {
     categoryListSink.add(Response.loading('Getting Categories.'));
     try {
+      print('working 1');
       Categories cats = await _categoryRepository.fetchCategoriesData();
+      print('working 2');
       categoryListSink.add(Response.completed(cats));
+      print('working 3');
     } catch (e) {
       categoryListSink.add(Response.error(e.toString()));
       print(e);

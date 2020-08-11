@@ -7,7 +7,7 @@ class Ad {
 
   Ad({this.id, this.createdAt, this.name, this.image, this.price});
 
-  Ad.fromJson(Map<String, dynamic> json) {
+  Ad.fromJson(Map<String, String> json) {
     id = json['id'];
     createdAt = json['createdAt'];
     name = json['name'];
@@ -15,8 +15,8 @@ class Ad {
     price = json['price'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+  Map<String, String> toJson() {
+    final Map<String, String> data = new Map<String, String>();
     data['id'] = this.id;
     data['createdAt'] = this.createdAt;
     data['name'] = this.name;

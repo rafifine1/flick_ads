@@ -1,13 +1,15 @@
-class Categories {
+import 'package:flutter/foundation.dart';
+
+class Category {
   String id;
   String createdAt;
   String name;
   String image;
 
-  Categories({this.id, this.createdAt, this.name, this.image});
+  Category({this.id, this.createdAt, this.name, this.image});
 
-  Categories.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+  Category.fromJson(Map<String, dynamic> json) {
+    id = json['id'].cast<String>();
     createdAt = json['createdAt'];
     name = json['name'];
     image = json['image'];
