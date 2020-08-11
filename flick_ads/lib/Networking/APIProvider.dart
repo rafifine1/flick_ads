@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'dart:async';
 
 class ApiProvider {
-  final String _baseUrl = "https://api.chucknorris.io/";
+  final String _baseUrl = "http://5e77328be3fd85001601f6cc.mockapi.io/api/";
 
   Future<dynamic> get(String url) async {
     var responseJson;
